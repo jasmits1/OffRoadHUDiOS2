@@ -14,6 +14,15 @@
 		9685186824FF1893004022EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9685186724FF1893004022EC /* Assets.xcassets */; };
 		9685186B24FF1893004022EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9685186A24FF1893004022EC /* Preview Assets.xcassets */; };
 		9685186E24FF1893004022EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9685186C24FF1893004022EC /* LaunchScreen.storyboard */; };
+		9685187D24FF19A5004022EC /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685187924FF19A5004022EC /* Location+CoreDataClass.swift */; };
+		9685187E24FF19A5004022EC /* Location+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685187A24FF19A5004022EC /* Location+CoreDataProperties.swift */; };
+		9685187F24FF19A5004022EC /* Inclinometer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685187B24FF19A5004022EC /* Inclinometer+CoreDataClass.swift */; };
+		9685188024FF19A5004022EC /* Inclinometer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685187C24FF19A5004022EC /* Inclinometer+CoreDataProperties.swift */; };
+		9685188224FF1A52004022EC /* SpeedometerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685188124FF1A52004022EC /* SpeedometerView.swift */; };
+		9685188424FF1A85004022EC /* GaugeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685188324FF1A85004022EC /* GaugeSection.swift */; };
+		9685188624FF1A9E004022EC /* InclinometerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685188524FF1A9E004022EC /* InclinometerView.swift */; };
+		9685188824FF1AC7004022EC /* LocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685188724FF1AC7004022EC /* LocationServices.swift */; };
+		9685188C24FF1BBF004022EC /* AccelerometerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685188B24FF1BBF004022EC /* AccelerometerService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +35,15 @@
 		9685186A24FF1893004022EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9685186D24FF1893004022EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9685186F24FF1893004022EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9685187924FF19A5004022EC /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9685187A24FF19A5004022EC /* Location+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9685187B24FF19A5004022EC /* Inclinometer+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inclinometer+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9685187C24FF19A5004022EC /* Inclinometer+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inclinometer+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9685188124FF1A52004022EC /* SpeedometerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedometerView.swift; sourceTree = "<group>"; };
+		9685188324FF1A85004022EC /* GaugeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeSection.swift; sourceTree = "<group>"; };
+		9685188524FF1A9E004022EC /* InclinometerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InclinometerView.swift; sourceTree = "<group>"; };
+		9685188724FF1AC7004022EC /* LocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServices.swift; sourceTree = "<group>"; };
+		9685188B24FF1BBF004022EC /* AccelerometerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +76,12 @@
 		9685185D24FF1892004022EC /* OffRoadHUDiOS2 */ = {
 			isa = PBXGroup;
 			children = (
-				9685185E24FF1892004022EC /* AppDelegate.swift */,
-				9685186024FF1892004022EC /* SceneDelegate.swift */,
-				9685186224FF1892004022EC /* ContentView.swift */,
+				9685187824FF18CA004022EC /* Services */,
+				9685187724FF18BF004022EC /* UI */,
+				9685187624FF18B9004022EC /* Model */,
+				9685187524FF18B3004022EC /* Supporting */,
 				9685186724FF1893004022EC /* Assets.xcassets */,
-				9685186C24FF1893004022EC /* LaunchScreen.storyboard */,
 				9685186F24FF1893004022EC /* Info.plist */,
-				9685186424FF1892004022EC /* OffRoadHUDiOS2.xcdatamodeld */,
 				9685186924FF1893004022EC /* Preview Content */,
 			);
 			path = OffRoadHUDiOS2;
@@ -76,6 +93,48 @@
 				9685186A24FF1893004022EC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9685187524FF18B3004022EC /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				9685186024FF1892004022EC /* SceneDelegate.swift */,
+				9685185E24FF1892004022EC /* AppDelegate.swift */,
+				9685186424FF1892004022EC /* OffRoadHUDiOS2.xcdatamodeld */,
+			);
+			path = Supporting;
+			sourceTree = "<group>";
+		};
+		9685187624FF18B9004022EC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9685187924FF19A5004022EC /* Location+CoreDataClass.swift */,
+				9685187A24FF19A5004022EC /* Location+CoreDataProperties.swift */,
+				9685187B24FF19A5004022EC /* Inclinometer+CoreDataClass.swift */,
+				9685187C24FF19A5004022EC /* Inclinometer+CoreDataProperties.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9685187724FF18BF004022EC /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				9685186224FF1892004022EC /* ContentView.swift */,
+				9685186C24FF1893004022EC /* LaunchScreen.storyboard */,
+				9685188124FF1A52004022EC /* SpeedometerView.swift */,
+				9685188324FF1A85004022EC /* GaugeSection.swift */,
+				9685188524FF1A9E004022EC /* InclinometerView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		9685187824FF18CA004022EC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9685188724FF1AC7004022EC /* LocationServices.swift */,
+				9685188B24FF1BBF004022EC /* AccelerometerService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,10 +207,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9685188624FF1A9E004022EC /* InclinometerView.swift in Sources */,
 				9685185F24FF1892004022EC /* AppDelegate.swift in Sources */,
 				9685186124FF1892004022EC /* SceneDelegate.swift in Sources */,
+				9685187E24FF19A5004022EC /* Location+CoreDataProperties.swift in Sources */,
+				9685187F24FF19A5004022EC /* Inclinometer+CoreDataClass.swift in Sources */,
+				9685188024FF19A5004022EC /* Inclinometer+CoreDataProperties.swift in Sources */,
+				9685188C24FF1BBF004022EC /* AccelerometerService.swift in Sources */,
 				9685186624FF1892004022EC /* OffRoadHUDiOS2.xcdatamodeld in Sources */,
+				9685187D24FF19A5004022EC /* Location+CoreDataClass.swift in Sources */,
+				9685188424FF1A85004022EC /* GaugeSection.swift in Sources */,
 				9685186324FF1892004022EC /* ContentView.swift in Sources */,
+				9685188824FF1AC7004022EC /* LocationServices.swift in Sources */,
+				9685188224FF1A52004022EC /* SpeedometerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,7 +288,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -275,7 +343,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
