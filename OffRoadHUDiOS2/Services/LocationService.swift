@@ -24,6 +24,11 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     static let geoCoder = CLGeocoder()
     private let notificationCenter: NotificationCenter
     
+    private var locationResult: [LocationResult]?
+    
+    var appDelegate: AppDelegate!
+    var managedObjectContext: NSManagedObjectContext!
+    
     /**
      Creates a DateFormatter to correctly format the date.
      */
@@ -67,9 +72,20 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
         os_log("Started successfully!", log: OSLog.locationService, type: .debug)
+        
+        //NetworkManager().postLocation()
+        //testNetworkCall()
+    }
+    
+    func stop() {
+        os_log("Stopping...", log: OSLog.locationService, type: .debug)
+        locationManager.stopUpdatingLocation()
+        os_log("Stopped Successfully!", log: OSLog.locationService, type: .debug)
     }
     
     // TODO: Add a stop?
+    
+    
     
     
     
@@ -86,70 +102,25 @@ class LocationService: NSObject, CLLocationManagerDelegate {
             return
         }
         
-        processNewLocationData(location)
-    
+        //processNewLocationData(location)
+        postNewLocation(location)
         
     }
     
     // MARK: Public and Private Utility Methods
     
     /**
-     This method is called by our locationManager method to process new location information recieved from the CLLocationManager.
-     It first saves the location data to our datastore and then posts it for any listeners.
+     This method is responsible for posting new location information for any listeners
      
      - Parameters:
-     - location: An instance of CLLocation containing new location information
-     
+     - location: The Location to be posted.
      */
-    private func processNewLocationData(_ location: CLLocation) {
-        os_log("Processing new data...", log: OSLog.locationService, type: .debug)
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-            return
-          }
-        let managedObjectContext =
-            appDelegate.persistentContainer.viewContext
-        let newLocation = Location(context: managedObjectContext)
-        newLocation.id = UUID()
-        newLocation.latitude = location.coordinate.latitude
-        newLocation.longitude = location.coordinate.longitude
-        newLocation.speedMS = location.speed
-        newLocation.date = location.timestamp
-        newLocation.dateString = LocationService.dateFormatter.string(from: newLocation.date)
-        print(newLocation.latitude)
-        print(newLocation.longitude)
-        print(newLocation.speedMS)
-        print(newLocation.date)
-        print(newLocation.dateString)
-        do {
-            try managedObjectContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-        
-        postNewLocation(newLocation)
-    }
-    
-    private func testCoreDataInsert() {
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-            return
-          }
-        let managedObjectContext =
-            appDelegate.persistentContainer.viewContext
-        
-        
-        let fetchRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "Location")
-        var locations: [NSManagedObject] = []
-        do {
-            locations = try managedObjectContext.fetch(fetchRequest)
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
-        }
-        
-        let location = locations[locations.endIndex - 1]
-        print(location.value(forKeyPath: "speedMS"))
+    private func postNewLocation(_ location: CLLocation) {
+        os_log("Posting...", log: OSLog.locationService, type: .debug)
+        let newLocation = LocationBusinessEntity(location: location)
+        //NetworkManager().postLocation(location: newLocation)
+        let locationData:[String: LocationBusinessEntity] = ["location": newLocation]
+        notificationCenter.post(name: Notification.Name.newLocationRecieved, object: nil, userInfo: locationData)
     }
     
     /**
@@ -160,6 +131,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
      */
     private func postNewLocation(_ location: Location) {
         os_log("Posting...", log: OSLog.locationService, type: .debug)
+        NetworkManager().postLocation(location: location)
         let locationData:[String: Location] = ["location": location]
         notificationCenter.post(name: Notification.Name.newLocationRecieved, object: nil, userInfo: locationData)
     }

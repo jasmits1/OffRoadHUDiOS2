@@ -14,8 +14,11 @@ struct ContentView: View {
     // MARK: Class Properties
     
     // Both the Location and Inclinometer instance need to be @State vars so the view updates when they update.
-    @State var location: Location?
+    @State var location: LocationBusinessEntity?
     @State var inclinometer: Inclinometer?
+    
+    @State var showPopup = false
+    @State var isTracking = false
     
     let labelTextColor = Color(UIColor(named: "labelText") ?? UIColor(red: 255, green: 0, blue: 0, alpha: 1.0))
     
@@ -23,14 +26,15 @@ struct ContentView: View {
     
     init() {
         // Start up our background services
-        LocationService.shared.start()
-        AccelerometerService.shared.start()
+//        LocationService.shared.start()
+//        AccelerometerService.shared.start()
         //AccelerometerService.shared.start()
     }
     
     // MARK: View
     
     var body: some View {
+        ZStack {
         VStack(alignment: .center) {
             SpeedometerView(value: (((location?.speedMPH) ?? 0.0)/100))
                 .padding(.top, 150.0)
@@ -72,14 +76,32 @@ struct ContentView: View {
                     .padding(.top, 100.0)
                 }
             }
-            
-            Spacer()
+            Button(action: {
+                if(!isTracking) {
+                    self.showPopup = true
+                } else {
+                    TrackingService.shared.stop()
+                    isTracking = false
+                }
+            }, label: {
+                if(!isTracking) {
+                    Text("Start Tracking")
+                } else {
+                    Text("Stop Tracking")
+                }
+            })
+           Spacer()
+            CustomAlert(showingAlert: $showPopup, isTracking: $isTracking)
+                .opacity(showPopup ? 1 : 0)
+//            CustomAlert(textEntered: $textEntered, showingAlert: $showPopup)
+//                                .opacity(showPopup ? 1 : 0)
+        }
             
         }
         .padding()
         // Register for notifications from our LocationService and update the UI accordingly
         .onReceive(NotificationCenter.default.publisher(for: LocationService.getLocationNotificationName())){ obj in
-            if let userInfo = obj.userInfo, let location = userInfo["location"] as? Location {
+            if let userInfo = obj.userInfo, let location = userInfo["location"] as? LocationBusinessEntity {
                 os_log("Recieved location broadcast in ContentView! Lat: %f Lon: %f Speed: %f", location.latitude, location.longitude, location.speedMS)
                 self.location = location
                 
@@ -93,11 +115,62 @@ struct ContentView: View {
                 self.inclinometer = inclinometer
             }
         }
-        
+        .onAppear {
+            LocationService.shared.start()
+            AccelerometerService.shared.start()
+            
+        }
+        .onDisappear {
+            LocationService.shared.stop()
+            AccelerometerService.shared.stop()
+        }
     }
-    
-    
 }
+
+struct CustomAlert: View {
+    //@Binding var textEntered: String
+    @Binding var showingAlert: Bool
+    @Binding var isTracking: Bool
+    
+    @State var text = ""
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.white)
+            VStack {
+                Text("Enter Route Name")
+                    .font(.title)
+                    .foregroundColor(.black)
+                
+                Divider()
+                
+                TextField("Route Name", text: $text)
+                    .padding(5)
+                    .background(Color.gray.opacity(0.2))
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 20)
+                
+                Divider()
+                
+                HStack {
+                    Button("Begin Route") {
+                        TrackingService.shared.start(routeName: text)
+                        isTracking = true
+                        print(text)
+                        self.showingAlert.toggle()
+                    }
+                    Button("Cancel") {
+                        self.showingAlert.toggle()
+                    }
+                }
+                .padding(30)
+                .padding(.horizontal, 40)
+            }
+        }
+        .frame(width: 300, height: 200)
+    }
+}
+
 
 // MARK: Previews
 

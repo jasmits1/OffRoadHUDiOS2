@@ -61,6 +61,12 @@ class AccelerometerService: NSObject {
         
     }
     
+    func stop() {
+        os_log("Stopping...", log: OSLog.accelerometerService, type: .debug)
+        motionManager.stopAccelerometerUpdates()
+        os_log("Stopped Successfully!", log: OSLog.accelerometerService, type: .debug)
+    }
+    
     /**
      Handles newly recieved accelerometer data and then posting it for any listeners.
      

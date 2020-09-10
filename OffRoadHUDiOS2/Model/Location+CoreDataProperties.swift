@@ -16,9 +16,9 @@ extension Location : Identifiable {
         return NSFetchRequest<Location>(entityName: "Location")
     }
 
-    @NSManaged public var date: Date
+    //@NSManaged public var date: Date
     @NSManaged public var dateString: String
-    @NSManaged public var id: UUID
+    //@NSManaged public var id: UUID
     @NSManaged public var latitude: Double
     @NSManaged public var longitude: Double
     @NSManaged public var speedMS: Double
