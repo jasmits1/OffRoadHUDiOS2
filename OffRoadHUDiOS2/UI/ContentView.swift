@@ -132,13 +132,14 @@ struct CustomAlert: View {
     @Binding var showingAlert: Bool
     @Binding var isTracking: Bool
     
+    @State var alertLabel = "Enter Route Name"
     @State var text = ""
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.white)
             VStack {
-                Text("Enter Route Name")
+                Text(alertLabel)
                     .font(.title)
                     .foregroundColor(.black)
                 
@@ -154,10 +155,14 @@ struct CustomAlert: View {
                 
                 HStack {
                     Button("Begin Route") {
+                        if(text.isEmpty) {
+                            alertLabel = "Route Name Required"
+                        } else {
                         TrackingService.shared.start(routeName: text)
                         isTracking = true
                         print(text)
                         self.showingAlert.toggle()
+                        }
                     }
                     Button("Cancel") {
                         self.showingAlert.toggle()

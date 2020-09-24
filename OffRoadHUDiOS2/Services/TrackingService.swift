@@ -19,7 +19,7 @@ class TrackingService: NSObject {
     }
     
     func start(routeName: String) {
-        os_log("Starting with route name %@...", log: OSLog.trackingService, type: .debug, routeName)
+        os_log("Starting...", log: OSLog.trackingService, type: .debug, routeName)
         NotificationCenter.default.addObserver(self, selector: #selector(saveNewLocation), name: LocationService.getLocationNotificationName(), object: nil)
     }
     

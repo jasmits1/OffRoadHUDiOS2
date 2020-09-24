@@ -14,8 +14,13 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="speedMS" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
+    <entity name="Route" representedClassName="Route" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="startDateString" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="Inclinometer" positionX="-54" positionY="36" width="128" height="133"/>
         <element name="Location" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="Route" positionX="-54" positionY="54" width="128" height="73"/>
     </elements>
 </model>
